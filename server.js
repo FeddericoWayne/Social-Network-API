@@ -3,7 +3,7 @@ const express = require('express');
 const db = require('./config/connection');
 
 // imports controller directory
-const routes = require('./controllers');
+const routes = require('./routes');
 
 // starts an instance of express
 const app = express();

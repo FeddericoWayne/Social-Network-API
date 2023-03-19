@@ -13,7 +13,7 @@ function formatDate(date) {
 const reactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
-        default: new ObjectId()
+        default: () => new Types.ObjectId()
     },
     reactionText: {
         type: String,
@@ -36,7 +36,6 @@ const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
         required: true,
-        minLength: 1,
         maxLength: 280
     },
     createdAt: {
