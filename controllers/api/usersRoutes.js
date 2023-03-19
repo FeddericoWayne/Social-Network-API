@@ -1,5 +1,7 @@
 // imports express router
 const router = require('express').Router();
+// imports mongoose models
+const { Thought,User } = require('../../models');
 
 
 
