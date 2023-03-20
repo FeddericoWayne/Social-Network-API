@@ -24,6 +24,7 @@ const reactionSchema = new Schema({
         type: String,
         required: true
     },
+    // TODO: figure out how to use getter method for date/time
     createdAt: {
         type: Date,
         default: Date.now,
@@ -38,6 +39,7 @@ const thoughtSchema = new Schema({
         required: true,
         maxLength: 280
     },
+    // TODO: figure out how to use getter method for date/time
     createdAt: {
         type: Date,
         default: Date.now,

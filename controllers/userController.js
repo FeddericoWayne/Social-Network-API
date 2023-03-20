@@ -1,5 +1,6 @@
-// imports mongoose User model
+// imports mongoose User and Thought model
 const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 // exports user CRUD operations
 module.exports = {
@@ -59,14 +60,21 @@ module.exports = {
     deleteUser(req,res) {
 
         // TODO: remove the user's associated thoughts when user's deleted
+
         User.findOneAndDelete({ _id:req.params.userId })
         .then((result)=>{
-            if (result) {
-                res.status(200).json(result);
-            } else {
+            const username = result.username;
+            if (!result) {
                 res.status(404).json({ message: 'User not found!' });
                 return;
-            }
+            };
+
+            // deletes all the thoughts from user as well
+            Thought.deleteMany({ username:username })
+            .then((data)=> 
+                res.status(200).json(result))
+            .catch(err => res.status(400).json(err));
+            
         })
         .catch(err => res.status(400).json(err));
     },

@@ -52,6 +52,17 @@ module.exports = {
     // PUT request to update a thought by id
     updateThought(req,res) {
         //TODO: complete PUT request
+        Thought.findOneAndUpdate({ _id:req.params.id},req.body,{ new:true })
+        .then((result)=>{
+            // if unable to locate thought by id
+            if (!result) {
+                res.status(404).json({ message:'Thought not found!'});
+                return;
+            };
+            res.status(200).json(result);
+        })
+        .catch(err => res.status(400).json(err));
+
     },
     // DELETE request to remove a thought by id
     removeThought(req,res) {
