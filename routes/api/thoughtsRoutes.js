@@ -1,13 +1,18 @@
 // imports express router
 const router = require('express').Router();
 // imports CRUD operations from thoughtController.js
-const { getAllThoughts,postThought,removeThought } = require('../../controllers/thoughtController');
+const { getAllThoughts,
+        getThought,
+        postThought,
+        updateThought,
+        removeThought 
+} = require('../../controllers/thoughtController');
 
 
-
+// route: /api/thoughts/
 router.route('/').get(getAllThoughts).post(postThought);
-
-router.route('/:id').delete(removeThought);
+// route: /api/thoughts/:id
+router.route('/:id').get(getThought).put(updateThought).delete(removeThought);
 
 
 

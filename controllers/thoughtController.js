@@ -1,5 +1,4 @@
 // imports Thought model 
-const { findOneAndDelete } = require('../models/Thought');
 const Thought = require('../models/Thought');
 const User = require('../models/User');
 
@@ -10,6 +9,20 @@ module.exports = {
         // finds all thoughts in database
         Thought.find({})
         .then((result)=>{
+            res.status(200).json(result);
+        })
+        .catch(err => res.status(400).json(err));
+
+    },
+    // GET request to retrieve a single thought
+    getThought(req,res) {
+        // finds single thought by id
+        Thought.findOne({ _id:req.params.id})
+        .then((result)=>{
+            if (!result) {
+                res.status(404).json({ message:'Thought not found!'});
+                return;
+            };
             res.status(200).json(result);
         })
         .catch(err => res.status(400).json(err));
@@ -35,6 +48,10 @@ module.exports = {
             .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));
+    },
+    // PUT request to update a thought by id
+    updateThought(req,res) {
+        //TODO: complete PUT request
     },
     // DELETE request to remove a thought by id
     removeThought(req,res) {
