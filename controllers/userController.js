@@ -93,33 +93,73 @@ module.exports = {
             };
 
             // if able to locate user
-            if (data) {
+            // checks to see if friend's userId is valid
+            User.findOne({ _id:friendId })
+            .then((result)=>{
 
-                // checks to see if friend's userId is valid
-                User.findOne({ _id:friendId })
-                .then((result)=>{
-                    const currentArray = data.friends;
-                    if (result) {
-                        // pushes new friend's userId to current friend array
-                        currentArray.push(friendId);
-                        // saves updated data to database
-                        data.save();
-                        res.status(200).json(data);
-                    } else if (!result) {
-                        res.status(404).json({ message: 'Friend not found!'});
-                        return;
-                    };
+                const currentArray = data.friends;
+                
+                if (!result) {
+                    res.status(404).json({ message: 'Friend not found!'});
+                    return;
+                };
 
-                })
+                // pushes new friend's userId to current friend array
+                currentArray.push(friendId);
+                // saves updated data to database
+                data.save();
+                res.status(200).json(data);
 
-            } else {
-                res.status(404).json({ message:'User not found!'});
-                return;
-            }
+            })
+            .catch(err => res.status(400).json(err));
+
         })
         .catch(err => res.status(400).json(err));
 
     },
+    // DELETE request to remove a friend from user's friend list
+    removeFriend(req,res) {
+        // assigns POST request params to variables
+        const userId = req.params.userId;
+        const friendId = req.params.friendId;
+
+        User.findOne({ _id:userId })
+        .then((data)=>{
+
+            // if user not found
+            if (!data) {
+                res.status(404).json({ message:'User not found!'});
+                return;
+            };
+
+            // if friend list does not include friend to be removed
+            if (!data.friends.includes(friendId)) {
+                res.status(404).json({ message:'User is not on your friend list!'});
+                return;
+            };
+
+            User.findOne({ _id:friendId })
+            .then((result)=>{
+                // if cannot find friend as a user
+                if (!result) {
+                    res.status(404).json({ message:'Friend not found!'});
+                    return;
+                };
+                // assigns current array of user's friends to variable
+                const currentArray = data.friends;
+                // removes friend's userId from current array
+                currentArray.remove(friendId);
+                // save changes to database
+                data.save();
+
+                res.status(200).json(data);
+
+            })
+            .catch(err => res.status(400).json(err));
+            
+        })
+        .catch(err => res.status(404).json(err));
+    }
 };
 
 
