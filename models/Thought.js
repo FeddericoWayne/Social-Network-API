@@ -1,4 +1,3 @@
-const { ObjectId } = require('bson');
 const { Schema, model } = require('mongoose');
 
 
@@ -6,7 +5,7 @@ function formatDate(date) {
 
     const timelapsed = new Date(date);
 
-    return (`${timelapsed.toDateString()} ${timelapsed.toLocaleTimeString()} EST`);
+    return `${timelapsed.toDateString()} ${timelapsed.toLocaleTimeString()} EST`;
 
 };
 
@@ -28,6 +27,7 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        immutable:true,
         get: formatDate
     }
 });
@@ -41,6 +41,7 @@ const thoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        immutable:true,
         get: formatDate
     },
     username: {

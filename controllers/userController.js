@@ -30,6 +30,10 @@ module.exports = {
         })
         // excludes the '__v' field in the result data
         .select('-__v')
+        // populates thoughts schema
+        .populate('thoughts')
+        // populates friends schema
+        .populate('friends')
         // TODO: add function to populate user's thoughts and friends data
         .then((result)=> {
             if (result) {

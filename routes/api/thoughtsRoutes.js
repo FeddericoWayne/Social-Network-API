@@ -1,12 +1,13 @@
 // imports express router
 const router = require('express').Router();
-// imports mongoose models
-const { Thought,User } = require('../../models');
+// imports CRUD operations from thoughtController.js
+const { getAllThoughts,postThought,removeThought } = require('../../controllers/thoughtController');
 
 
-router.get('/',(req,res)=>{
-    res.status(200).json({message:"router setup success!"});
-});
+
+router.route('/').get(getAllThoughts).post(postThought);
+
+router.route('/:id').delete(removeThought);
 
 
 
