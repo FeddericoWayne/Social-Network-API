@@ -96,7 +96,7 @@ module.exports = {
             User.findOne({ username:result.username})
             .then((data)=>{
                 
-                // removes thought id from user's thoughts array
+                // removes thought id from user's thoughts array 
                 data.thoughts.remove(req.params.thoughtId);
                 // saves updated user thought array into database
                 data.save();
