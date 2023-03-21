@@ -68,7 +68,7 @@ module.exports = {
         // finds all the users that has the deleted user as a friend
         User.find({ friends:userId })
         .then((data)=>{
-            // loops through all the users who has the deleted user as a friend and removes the deleted user's ID from the other users' friend array
+            // loops through all the users who has the deleted user as a friend and removes the deleted user's ID from their friends array
             for (item of data) {
                 item.friends.remove(userId);
                 // saves updated friend list with the deleted user's ID removed
