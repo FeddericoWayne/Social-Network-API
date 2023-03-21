@@ -31,8 +31,10 @@ const thoughtSchema = new Schema({
     reactions: [reaction]
 
 },{
+    // allows virtuals and getters to run when converting to JSON
     toJSON: {
-        virtuals: true
+        virtuals: true,
+        getters: true
     },
     id: false
 

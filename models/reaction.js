@@ -23,12 +23,16 @@ const reactionSchema = new Schema({
         type: String,
         required: true
     },
-    // TODO: figure out how to use getter method for date/time
     createdAt: {
         type: Date,
         default: Date.now,
         immutable:true,
         get: formatDate
+    }
+},{
+    // allows getter method to run when converting document to JSON
+    toJSON: {
+        getters: true
     }
 });
 
