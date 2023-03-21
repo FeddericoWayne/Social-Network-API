@@ -14,6 +14,7 @@ module.exports = {
     getAllUsers(req,res) {
         // find all data
         User.find({})
+        .select('-__v')
         .then((results)=>{
             if (results) {
                 res.status(200).json(results);
@@ -32,9 +33,9 @@ module.exports = {
         // excludes the '__v' field in the result data
         .select('-__v')
         // populates thoughts schema
-        .populate('thoughts')
+        .populate({ path:'thoughts',select:'-__v'})
         // populates friends schema
-        .populate('friends')
+        .populate({ path:'friends',select:'-__v'})
         // TODO: add function to populate user's thoughts and friends data
         .then((result)=> {
             if (result) {
