@@ -1,4 +1,4 @@
-// imports mongoose User and Thought model
+// imports mongoose User and Thought models
 const User = require('../models/User');
 const Thought = require('../models/Thought');
 
@@ -32,9 +32,9 @@ module.exports = {
         })
         // excludes the '__v' field in the result data
         .select('-__v')
-        // populates thoughts schema
+        // populates thoughts schema and excludes the '__v' field
         .populate({ path:'thoughts',select:'-__v'})
-        // populates friends schema
+        // populates friends schema and excludes the '__v' field
         .populate({ path:'friends',select:'-__v'})
         // TODO: add function to populate user's thoughts and friends data
         .then((result)=> {

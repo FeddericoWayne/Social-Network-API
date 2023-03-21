@@ -1,5 +1,4 @@
-// imports Thought model 
-const { resourceLimits } = require('worker_threads');
+// imports mongoose Thought and User models
 const Thought = require('../models/Thought');
 const User = require('../models/User');
 
@@ -54,7 +53,7 @@ module.exports = {
     },
     // PUT request to update a thought by id
     updateThought(req,res) {
-        //TODO: complete PUT request
+
         Thought.findOneAndUpdate({ _id:req.params.thoughtId},req.body,{ new:true })
         .then((result)=>{
             // if unable to locate thought by id
@@ -79,8 +78,9 @@ module.exports = {
             // locates thought author and removes thought id from thoughts array
             User.findOne({ username:result.username})
             .then((data)=>{
-                // TODO: figure out what to do if thought in params can't be found
-                data.thoughts.remove(req.params.id);
+                // removes thought id from user's thoughts array
+                data.thoughts.remove(req.params.thoughtId);
+                // saves updated user thought array into database
                 data.save();
             })
             .catch(err=> res.status(400).json(err));
