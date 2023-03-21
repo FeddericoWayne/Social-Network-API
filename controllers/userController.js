@@ -7,7 +7,7 @@ module.exports = {
     // POST request for creating new user
     createUser(req,res) {
         User.create(req.body)
-        .then((newUserData) => res.status(200).json(newUserData))
+        .then((newUserData) => res.status(200).json({ message:'New user created!'}))
         .catch((err)=> res.status(400).json(err));
     },
     // GET request for retrieving all users data
@@ -16,7 +16,7 @@ module.exports = {
         User.find({})
         .select('-__v')
         .then((results)=>{
-            if (results) {
+            if (results.length) {
                 res.status(200).json(results);
             } else {
                 res.status(404).json({ message: 'No data found!' });
@@ -53,27 +53,32 @@ module.exports = {
             updateBody ,
             { new: true })
         .then((result)=> {
-            res.status(200).json(result);
+            if (!result) {
+                res.status(404).json({ message:'User not found!' });
+                return;
+            }
+            res.status(200).json({ message:'User info updated!'});
         })
         .catch(err => res.status(400).json(err)); 
     },
     // DELETE request to remove a single user by userId
     deleteUser(req,res) {
 
-        // TODO: remove the user's associated thoughts when user's deleted
-
+        // TODO: remove the user's id from other user's friend array when user's deleted
         User.findOneAndDelete({ _id:req.params.userId })
         .then((result)=>{
-            const username = result.username;
+
             if (!result) {
                 res.status(404).json({ message: 'User not found!' });
                 return;
             };
 
+
+            const username = result.username;
             // deletes all the thoughts from user as well
             Thought.deleteMany({ username:username })
             .then((data)=> 
-                res.status(200).json(result))
+                res.status(200).json({ message:'User and user thoughts deleted!'}))
             .catch(err => res.status(400).json(err));
             
         })
@@ -121,7 +126,7 @@ module.exports = {
                 currentArray.push(friendId);
                 // saves updated data to database
                 data.save();
-                res.status(200).json(data);
+                res.status(200).json({ message:'New friend added!'});
 
             })
             .catch(err => res.status(400).json(err));
@@ -165,7 +170,7 @@ module.exports = {
                 // save changes to database
                 data.save();
 
-                res.status(200).json(data);
+                res.status(200).json({ message:'Friend removed!'});
 
             })
             .catch(err => res.status(400).json(err));
