@@ -2,6 +2,27 @@
 
   ## <a id="Description">Description</a> 
 
+  This is an API for a social network that utilizes mongoDB as its database. With the help of mongoose, it allows users to perform various CRUD operations on the following mongoose models: User, Thoughts (which includes a reaction subdocument).
+
+  Users will be able to:
+
+   * Create a new user by entering username and email
+   * Retrieve data from all the existing users
+   * Retrieve data from a single user by specifying the user's unique user ID, with the user's posted thoughts and friends details both populated
+   * Update a user's info by the user's unique user ID
+   * Delete a user by the user's unique user ID, which would also delete all the thoughts the user has created from the database and remove the deleted user's user ID from other user's 'friends' array
+
+   * Add another user as a friend (which would add the new friend's user ID to the user's 'friends' array)
+   * Remove a friend from the user's current friend list (removing the friend's user ID from the user's 'friends' array)
+
+   * Create a new thought by entering 'thoughtText', 'username', and 'userId
+   * Retrieve all existing thoughts
+   * Retrieve a single thought by using the thought's unique ID
+   * Update a single thought by using the thought's unique ID and entering the new 'thoughtText'
+   * Delete a single thought by using the thought's unique ID, which would also remove the thought's ID from the author's 'thoughts' array
+   * Post a reaction to a thought by using the thought's ID and entering the 'reactionBody' and 'username'
+   * Delete a reaction to a thought by using the thought's ID and the reaction's 'reactionID'
+
   
   The URL of the demo video: 
 
@@ -49,7 +70,7 @@
 
   Reactions DELETE request to remove a reaction to a thought:
   <img src="./assets/images/edit-comment-screenshot.png">
-  
+
 ***
 
   ## Table of Content
