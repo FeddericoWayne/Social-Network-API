@@ -10,7 +10,7 @@ module.exports = {
         User.findOne({$or: [{ username:req.body.username },{ email:req.body.email }]})
         .then((result)=>{
             if (result) {
-                res.status(409).json({ message:'User already exists!'});
+                res.status(409).json({ message:'Username and/or email already taken!'});
                 return;
             };
 
@@ -79,6 +79,7 @@ module.exports = {
         // finds all the users that has the deleted user as a friend
         User.find({ friends:userId })
         .then((data)=>{
+
             // loops through all the users who has the deleted user as a friend and removes the deleted user's ID from their friends array
             for (item of data) {
                 item.friends.remove(userId);
@@ -88,6 +89,32 @@ module.exports = {
 
         })
         .catch(err => { if (err) throw err });
+
+        // finds the deleted user and removes all the reactions the user posted
+        User.findOne({ _id:req.params.userId })
+        .then((userInfo) =>{
+
+            const username = userInfo.username;
+
+            // loops through all the thoughts that have the user's reactions and removes the reactions
+            Thought.find({})
+            .then((resultThoughts) =>{
+
+                for (var i=0; i<resultThoughts.length; i++) {
+                    for (reaction of resultThoughts[i].reactions) {
+                        if (reaction.username === username) {
+                            reaction.remove();
+                            resultThoughts[i].save();
+                        }
+                    }
+                }
+
+            })
+            .catch((err) => {if (err) throw err});
+        })
+        .catch((err)=> {if (err) throw err});
+        
+
 
         // finds the deleted user and delete him along with all his posted thoughts
         User.findOneAndDelete({ _id:req.params.userId })
