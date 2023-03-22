@@ -7,7 +7,7 @@ module.exports = {
     // POST request for creating new user
     createUser(req,res) {
         // checks to see if user already exists in database
-        User.findOne({ username:req.body.username,email:req.body.email })
+        User.findOne({$or: [{ username:req.body.username },{ email:req.body.email }]})
         .then((result)=>{
             if (result) {
                 res.status(409).json({ message:'User already exists!'});
