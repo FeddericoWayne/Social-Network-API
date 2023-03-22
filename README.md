@@ -12,7 +12,7 @@
    * Retrieve data from all the existing users
    * Retrieve data from a single user by specifying the user's unique user ID, with the user's posted thoughts and friends details both populated by mongoose
    * Update a user's info by the user's unique user ID
-   * Delete a user by the user's unique user ID, which would also delete all the thoughts the user has created from the database and remove the deleted user's user ID from other users' 'friends' array
+   * Delete a user by the user's unique user ID, which would also delete all the thoughts and reactions the user has created from the database and remove the deleted user's user ID from other users' 'friends' array
 
    * Add another user as a friend (which would add the new friend's user ID to the user's 'friends' array)
    * Remove a friend from the user's current friend list (removing the friend's user ID from the user's 'friends' array)

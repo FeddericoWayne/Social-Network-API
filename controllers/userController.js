@@ -75,24 +75,13 @@ module.exports = {
     // DELETE request to remove a single user by userId
     deleteUser(req,res) {
 
-        const userId = req.params.userId;
-        // finds all the users that has the deleted user as a friend
-        User.find({ friends:userId })
-        .then((data)=>{
-
-            // loops through all the users who has the deleted user as a friend and removes the deleted user's ID from their friends array
-            for (item of data) {
-                item.friends.remove(userId);
-                // saves updated friend list with the deleted user's ID removed
-                item.save();
-            };
-
-        })
-        .catch(err => { if (err) throw err });
-
         // finds the deleted user and removes all the reactions the user posted
         User.findOne({ _id:req.params.userId })
         .then((userInfo) =>{
+
+            if (!userInfo) {
+                return;
+            }
 
             const username = userInfo.username;
 
@@ -100,11 +89,14 @@ module.exports = {
             Thought.find({})
             .then((resultThoughts) =>{
 
-                for (var i=0; i<resultThoughts.length; i++) {
-                    for (reaction of resultThoughts[i].reactions) {
-                        if (reaction.username === username) {
-                            reaction.remove();
-                            resultThoughts[i].save();
+                if (resultThoughts.length) {
+
+                    for (var i=0; i<resultThoughts.length; i++) {
+                        for (reaction of resultThoughts[i].reactions) {
+                            if (reaction.username === username) {
+                                reaction.remove();
+                                resultThoughts[i].save();
+                            }
                         }
                     }
                 }
@@ -113,8 +105,23 @@ module.exports = {
             .catch((err) => {if (err) throw err});
         })
         .catch((err)=> {if (err) throw err});
-        
 
+        const userId = req.params.userId;
+        // finds all the users that has the deleted user as a friend
+        User.find({ friends:userId })
+        .then((data)=>{
+
+            if (data.length) {
+                // loops through all the users who has the deleted user as a friend and removes the deleted user's ID from their friends array
+                for (item of data) {
+                    item.friends.remove(userId);
+                    // saves updated friend list with the deleted user's ID removed
+                    item.save();
+                };
+            }
+
+        })
+        .catch(err => { if (err) throw err });
 
         // finds the deleted user and delete him along with all his posted thoughts
         User.findOneAndDelete({ _id:req.params.userId })
@@ -134,7 +141,6 @@ module.exports = {
             
         })
         .catch(err => res.status(400).json(err));
-
 
     },
     // add a friend to a user
