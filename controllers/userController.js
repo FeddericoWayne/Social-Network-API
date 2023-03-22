@@ -79,7 +79,7 @@ module.exports = {
         User.findOne({ _id:req.params.userId })
         .then((userInfo) =>{
 
-            if (!userInfo) {
+            if (!userInfo) { 
                 return;
             }
 
@@ -136,7 +136,7 @@ module.exports = {
             // deletes all the thoughts from the deleted user as well
             Thought.deleteMany({ username:username })
             .then((response)=> 
-                res.status(200).json({ message:'User and user thoughts deleted!'}))
+                res.status(200).json({ message:'User deleted!'}))
             .catch(err => res.status(400).json(err));
             
         })

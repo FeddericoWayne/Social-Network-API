@@ -34,49 +34,10 @@
 
   The URL of the Github repo is: https://github.com/FeddericoWayne/Social-Network-API
 
+
   API CRUD operation screenshots:
+  <img src="./assets/images/social-network-API.gif">
 
-  User GET request for all users:
-  <img src="./assets/images/login-screenshot.png">
-
-  User GET request for a single user:
-  <img src="./assets/images/Dashboard-screenshot.png">
-
-  User POST request for new user creation:
-  <img src="./assets/images/Homepage-screenshot.png">
-
-  User POST request to update user info:
-  <img src="./assets/images/newpost-screenshot.png">
-
-  user DELETE request to remove user and user's associated thoughts:
-  <img src="./assets/images/Comment-screenshot.png">
-
-  Friends POST request to add friend to User:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Friends DELETE request to remove friend from User:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Thoughts GET request to retrieve all thoughts:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Thoughts GET request to a single thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Thoughts POST request to create new thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Thoughts PUT request to update a thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Thoughts DELETE request to remove a thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Reactions POST request to create a reaction to a thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
-
-  Reactions DELETE request to remove a reaction to a thought:
-  <img src="./assets/images/edit-comment-screenshot.png">
 
 ***
 
