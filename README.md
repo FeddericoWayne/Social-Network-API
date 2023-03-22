@@ -2,26 +2,30 @@
 
   ## <a id="Description">Description</a> 
 
-  This is an API for a social network that utilizes mongoDB as its database. With the help of mongoose, it allows users to perform various CRUD operations on the following mongoose models: User, Thoughts (which includes a reaction subdocument).
+  This is an API for a social network that utilizes mongoDB as its database. With the help of mongoose and node express, it allows users to perform various CRUD operations on the following mongoose models: User, Thoughts (which includes a reaction subdocument).
 
   Users will be able to:
 
-   * Create a new user by entering username and email
+   * Create a new user by entering username and email in the body of the request
    * Retrieve data from all the existing users
-   * Retrieve data from a single user by specifying the user's unique user ID, with the user's posted thoughts and friends details both populated
+   * Retrieve data from a single user by specifying the user's unique user ID, with the user's posted thoughts and friends details both populated by mongoose
    * Update a user's info by the user's unique user ID
-   * Delete a user by the user's unique user ID, which would also delete all the thoughts the user has created from the database and remove the deleted user's user ID from other user's 'friends' array
+   * Delete a user by the user's unique user ID, which would also delete all the thoughts the user has created from the database and remove the deleted user's user ID from other users' 'friends' array
 
    * Add another user as a friend (which would add the new friend's user ID to the user's 'friends' array)
    * Remove a friend from the user's current friend list (removing the friend's user ID from the user's 'friends' array)
 
-   * Create a new thought by entering 'thoughtText', 'username', and 'userId
+   * Create a new thought by entering 'thoughtText', 'username', and 'userId in the body of the request
    * Retrieve all existing thoughts
    * Retrieve a single thought by using the thought's unique ID
-   * Update a single thought by using the thought's unique ID and entering the new 'thoughtText'
+   * Update a single thought by using the thought's unique ID and entering the new 'thoughtText' as the request body
    * Delete a single thought by using the thought's unique ID, which would also remove the thought's ID from the author's 'thoughts' array
-   * Post a reaction to a thought by using the thought's ID and entering the 'reactionBody' and 'username'
+   * Post a reaction to a thought by using the thought's ID and entering the 'reactionBody' and 'username' in the request body
    * Delete a reaction to a thought by using the thought's ID and the reaction's 'reactionID'
+
+  Once a GET request for user/thought is sent successfully, the API will return queried data; once a user/friend/thought/reaction POST request is sent successfully, the API will return a message to notify the user that a new user/friend/thought/reaction has been created/added; once a user/thought PUT request is sent successfully, the API will return a message notifying the user accordingly; once a user/friend/thought/reaction DELETE request is sent successfully, the API will return a message notifying the user that the user/friend/thought/reaction has been removed/deleted.
+
+  If at any point the mongoDB User/ Thought collection is empty when queried, the user will get a message that says no data is found. If at any point the user enters a user ID/ thought ID/ reaction ID that doesn't exist in the database, the user will be alerted accordingly. If the user tries to add himself as a friend or add the same person as a friend multiple times, the API will return a message that alerts the user that such request isn't allowed. 
 
   
   The URL of the demo video: 
@@ -87,13 +91,13 @@
 
   ## <a id="Installation">Installation</a>
 
-  No installation is needed. Follow the instructions in the Description section of this README to post technology-related content and interact with other users in the comment section.
+  No installation is needed. Follow the instructions in the Description section of this README to perform CRUD operations on the user/friend/thought/reaction of this social network API.
 
 ***
 
   ## <a id="Usage">Usage</a>
 
-  This App is a blog for people to post about everything technology.
+  This is a social network API for users to share their thoughts, add other users' as friends, and react to other users' thoughts.
 
 ***
 
