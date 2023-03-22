@@ -6,9 +6,20 @@ const Thought = require('../models/Thought');
 module.exports = {
     // POST request for creating new user
     createUser(req,res) {
-        User.create(req.body)
-        .then((newUserData) => res.status(200).json({ message:'New user created!'}))
-        .catch((err)=> res.status(400).json(err));
+        // checks to see if user already exists in database
+        User.findOne({ username:req.body.username,email:req.body.email })
+        .then((result)=>{
+            if (result) {
+                res.status(409).json({ message:'User already exists!'});
+                return;
+            };
+
+            User.create(req.body)
+            .then((newUserData) => res.status(200).json({ message:'New user created!'}))
+            .catch((err)=> res.status(400).json(err));
+        })
+        .catch((err) =>{ if (err) throw err });
+        
     },
     // GET request for retrieving all users data
     getAllUsers(req,res) {

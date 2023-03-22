@@ -4,6 +4,8 @@
 
   This is an API for a social network that utilizes mongoDB as its database. With the help of mongoose and node express, it allows users to perform various CRUD operations on the following mongoose models: User, Thoughts (which includes a reaction subdocument).
 
+  To start the API server, install required npm packages and then type "npm start" on the terminal.
+
   Users will be able to:
 
    * Create a new user by entering username and email in the body of the request
@@ -25,14 +27,15 @@
 
   Once a GET request for user/thought is sent successfully, the API will return queried data; once a user/friend/thought/reaction POST request is sent successfully, the API will return a message to notify the user that a new user/friend/thought/reaction has been created/added; once a user/thought PUT request is sent successfully, the API will return a message notifying the user accordingly; once a user/friend/thought/reaction DELETE request is sent successfully, the API will return a message notifying the user that the user/friend/thought/reaction has been removed/deleted.
 
-  If at any point the mongoDB User/ Thought collection is empty when queried, the user will get a message that says no data is found. If at any point the user enters a user ID/ thought ID/ reaction ID that doesn't exist in the database, the user will be alerted accordingly. If the user tries to add himself as a friend or add the same person as a friend multiple times, the API will return a message that alerts the user that such request isn't allowed. 
+  If the user attemps to create a new user that already exists in the database, the API will send a duplicate data alert. If at any point the mongoDB User/ Thought collection is empty when queried, the user will get a message that says no data is found. If at any point the user enters a user ID/ thought ID/ reaction ID that doesn't exist in the database, the user will be alerted accordingly. If the user tries to add himself as a friend or add the same person as a friend multiple times, the API will return a message that alerts the user that such request isn't allowed. 
 
   
   The URL of the demo video: 
 
   The URL of the Github repo is: https://github.com/FeddericoWayne/Social-Network-API
 
-  
+  API CRUD operation screenshots:
+
   User GET request for all users:
   <img src="./assets/images/login-screenshot.png">
 
