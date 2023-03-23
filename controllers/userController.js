@@ -1,6 +1,5 @@
 // imports mongoose User and Thought models
-const User = require('../models/User');
-const Thought = require('../models/Thought');
+const { User,Thought } = require('../models');
 
 // exports user CRUD operations
 module.exports = {
