@@ -30,8 +30,8 @@
   If the user attemps to create a new user that already exists in the database, the API will send a duplicate data alert. If at any point the mongoDB User/ Thought collection is empty when queried, the user will get a message that says no data is found. If at any point the user enters a user ID/ thought ID/ reaction ID that doesn't exist in the database, the user will be alerted accordingly. If the user tries to add himself as a friend or add the same person as a friend multiple times, the API will return a message that alerts the user that such request isn't allowed. 
 
   
-  The URL of the demo video: https://app.castify.com/view/b3dc2562-18c7-43ed-8a44-1a0aa2b6bbef
-  
+  The URL of the demo video: https://app.castify.com/watch/b3dc2562-18c7-43ed-8a44-1a0aa2b6bbef
+
   The URL of the Github repo is: https://github.com/FeddericoWayne/Social-Network-API
 
 
